@@ -116,3 +116,33 @@ nav .circle{
     background: skyblue;
     color: black;
 }
+@media screen and (max-width: 600px) {
+    .music-player {
+        width: 80%;
+    }
+
+    .song-img {
+        width: 150px;
+    }
+
+    .controls div {
+        width: 40px;
+        height: 40px;
+        margin: 10px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .song-img {
+        width: 120px;
+    }
+
+    .controls div {
+        width: 30px;
+        height: 30px;
+        margin: 8px;
+        font-size: 14px;
+    }
+}
+
