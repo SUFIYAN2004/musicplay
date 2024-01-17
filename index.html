@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>music</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/995bb440f3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <img src="image/logo.jpeg" alt="imagelogo" class="song-img">
+            <h3>Into Your Arms |Slowed|</h3>
+            <p> Hala al turk</p>
+
+            <audio id="song">
+                <source src="into-your-arms.mp3" type="audio/mpeg">
+            </audio>
+            <audio id="song2">
+                <source src="Audio.mp3" type="audio/mpeg">
+            </audio>
+            <input type="range" value="0" id="progress">
+
+            <div class="controls">
+                <div onclick="previous()"><i class="fa-solid fa-backward"></i></div>
+                <div onclick="playPause()"><i class="fa-solid fa-play" id="ctrlicon"></i></div>
+                <div onclick="next()"><i class="fa-solid fa-forward"></i></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let progress = document.getElementById("progress");
+        let song = document.getElementById("song");
+        let song2 = document.getElementById("song2");
+        let ctrlicon = document.getElementById("ctrlicon");
+        let currentSong = 1;
+
+
+        song.onloadedmetadata = function(){
+            progress.max = song.duration;
+            progress.value = song.currentTime;
+        };
+
+        function playPause(){
+            if(ctrlicon.classList.contains("fa-pause")){
+                song.pause();
+                song2.pause()
+                ctrlicon.classList.remove("fa-pause");
+                ctrlicon.classList.add("fa-play");
+            }
+            else{
+                if (currentSong == 1){
+                    song.play();
+                } else {
+                    song2.play();
+                }
+                ctrlicon.classList.add("fa-pause");
+                ctrlicon.classList.remove("fa-play");
+
+                setInterval(()=>{
+                    if (currentSong === 1){
+                        progress.value = song.currentTime;
+                    } else{
+                    progress.value = song2.currentTime;
+                }
+
+             },500);
+        }
+    }
+
+        progress.onchange = function(){
+            if (currentSong === 1){
+                song.play();
+                song.currentTime=progress.value;
+            } else{
+
+                song2.play();
+                song2.currentTime=progress.value;
+            }
+            ctrlicon.classList.add("fa-pause");
+            ctrlicon.classList.remove("fa-play");
+        }
+
+        function previous(){
+            currentSong = (currentSong === 1)?2:1;
+            progress.value = 0;
+            if(currentSong === 1){
+                song.play();
+                song2.pause();
+            } else{
+                song2.play();
+                song.pause();
+            }
+        }
+
+        function next(){
+            currentSong = (currentSong === 1)?2:1;
+            progress.value = 0;
+            if (currentSong === 1){
+                song.play();
+                song2.pause();
+            } else {
+                song2.play();
+                song.pause()
+            }
+        }
+    </script>
+</body>
+</html>
